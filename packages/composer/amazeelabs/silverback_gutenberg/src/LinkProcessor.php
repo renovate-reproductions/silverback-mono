@@ -47,10 +47,7 @@ class LinkProcessor {
       $this->processLink($link, $direction, $language);
     }
 
-    $processed = Html::serialize($document);
-
-    // This entity kills Gutenberg.
-    $processed = str_replace('&#13;', "\r", $processed);
+    $processed = Utils::serializeHtml($document);
 
     if (strpos($processed, '<!-- wp:') !== FALSE) {
       $blocks = (new BlockParser())->parse($processed);

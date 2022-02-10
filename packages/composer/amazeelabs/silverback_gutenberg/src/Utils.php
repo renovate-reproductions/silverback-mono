@@ -2,6 +2,7 @@
 
 namespace Drupal\silverback_gutenberg;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\gutenberg\Controller\UtilsController;
@@ -25,6 +26,15 @@ class Utils {
 
   public static function linkProcessor(): LinkProcessor {
     return \Drupal::service(LinkProcessor::class);
+  }
+
+  public static function serializeHtml(\DOMDocument $document): string {
+    $serialized = Html::serialize($document);
+
+    // This entity kills Gutenberg.
+    $serialized = str_replace('&#13;', "\r", $serialized);
+
+    return $serialized;
   }
 
 }
