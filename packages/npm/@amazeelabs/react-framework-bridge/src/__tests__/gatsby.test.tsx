@@ -221,8 +221,8 @@ describe('buildForm', () => {
         <button type="submit" />
       </Form>,
     );
-    userEvent.type(screen.getByRole('textbox'), 'bar');
-    userEvent.click(screen.getByRole('button'));
+    await userEvent.type(screen.getByRole('textbox'), 'bar');
+    await userEvent.click(screen.getByRole('button'));
     await waitFor(() => {
       expect(callback).toHaveBeenCalledTimes(1);
       expect(callback).toHaveBeenCalledWith({ foo: 'bar' });
